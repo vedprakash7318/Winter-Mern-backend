@@ -1,0 +1,13 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "MERN :-  \r     Mongo  :- DB\r     Express :- Backend \r     React   :- Frontend \r     Node    :- Run Time Enviroment",
+  "main": "code1.js",
+  "type":"module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ved Prakash",
+  "license": "ISC",
+  "keywords": []
+}
