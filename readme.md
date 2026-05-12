@@ -34,8 +34,8 @@ Nodejs:-
     V8 Engine
     Event Loop
     File System  Done
-    OS           :-  done
-    HTTP         :-
+    OS           :- done
+    HTTP         :- Done
     CRUD
 MongoDB
 
@@ -65,6 +65,8 @@ Status Code:- 200,201,500,404
 header:- text/html,
 
 npm i nodemon -g  :-  run this command to auto start you server page
+
+
 
 
 
