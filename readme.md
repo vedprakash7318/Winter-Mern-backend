@@ -36,7 +36,7 @@ Nodejs:-
     File System  Done
     OS           :- done
     HTTP         :- Done
-    CRUD
+    CRUD         :- Done
 MongoDB
 
 Express JS 
@@ -69,6 +69,23 @@ npm i nodemon -g  :-  run this command to auto start you server page
 
 
 
+
+
+connect() :- mongodbConnect
+db() :- select database
+createCollection() :- collection create
+insertOne() :- single data insert
+insertMany() :- multiple data insert
+find() :- data read
+updateOne() :- single data update
+updateMany() :- multiple data update
+deleteOne() :- single data delete
+deleteMany() :- multiple data delete
+$set:- field update
+$gt,$gte,$lt...
+drop() :-  document delete 
+dropCollection() :-  collection delete
+dropDatabse() :-  database delete 
 
 
 

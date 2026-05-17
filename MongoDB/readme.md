@@ -332,3 +332,25 @@ db.students.fin({
 
  db.students.getIndexes()
  db.students.createIndex()
+
+
+
+
+frontend :-  crud system using nodejs
+
+
+name
+email
+phone
+password
+
+
+console 
+
+
+{
+    name:"Ved"
+    email:"ved@gmail.com",
+    phone:"345678",
+    password:"345678"
+}

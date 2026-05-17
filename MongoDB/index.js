@@ -21,9 +21,6 @@ async function connectDB(){
             age: 22,
         },
     ])
-
-    
-    
 }
 connectDB()
 
