@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const App = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,21 @@ const App = () => {
     phone: "",
     password: ""
   })
+
+  const [students, setStudents] = useState([])
+
+  //get data 
+
+  const getStudents = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/get-data')
+      setStudents(res.data.data)
+
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -25,14 +40,29 @@ const App = () => {
         phone: "",
         password: ""
       })
-      console.log(res );
-      
+      getStudents()
+      console.log(res);
+
     } catch (error) {
       console.log(error);
       alert("eror")
     }
 
   }
+  const deleteStudents = async (id) => {
+    try {
+      
+      await axios.delete(`http://localhost:3000/delete/${id}`)
+      alert("Data Deleted")
+      getStudents()
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getStudents()
+  }, [])
   return (
     <div>
       <h1>Form</h1>
@@ -68,7 +98,35 @@ const App = () => {
         />
         <br /> <br />
         <button type='submit'>Submit</button>
+        <br /> <br />
+
       </form>
+
+      <h2>All Data</h2>
+
+      <table border='1' cellPadding='10' cellSpacing='0'>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Password</th>
+          <th>Delete</th>
+        </tr>
+        <tbody>
+          {
+            students.map((students, index) => (
+              <tr key={index}>
+                <td>{students.name}</td>
+                <td>{students.email}</td>
+                <td>{students.phone}</td>
+                <td>{students.password}</td>
+                <td><button onClick={() => deleteStudents(students._id)}>Delete</button></td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+
     </div>
   )
 }
