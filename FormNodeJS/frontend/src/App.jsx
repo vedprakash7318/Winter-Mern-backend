@@ -10,7 +10,7 @@ const App = () => {
   })
 
   const [students, setStudents] = useState([])
-
+  const [editId,setEditId] = useState(null)
   //get data 
 
   const getStudents = async () => {
@@ -33,15 +33,29 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('http://localhost:3000/register', formData)
-      setFormData({
+      
+      if(editId){
+        await axios.put(`http://localhost:3000/update/${editId}`,formData)
+        setEditId(null)
+        alert("Data Updated")
+         setFormData({
         name: '',
         email: "",
         phone: "",
         password: ""
       })
       getStudents()
-      console.log(res);
+      }else{
+        const res = await axios.post('http://localhost:3000/register', formData)
+         setFormData({
+        name: '',
+        email: "",
+        phone: "",
+        password: ""
+      })
+      getStudents()
+      }
+     
 
     } catch (error) {
       console.log(error);
@@ -59,6 +73,18 @@ const App = () => {
       console.log(error);
     }
   }
+
+
+  const editStudents =(students)=>{
+   setFormData({
+    name:students.name,
+    email:students.email,
+    phone:students.phone,
+    password:students.password
+   })
+    setEditId(students._id)
+  }
+
 
   useEffect(() => {
     getStudents()
@@ -97,7 +123,7 @@ const App = () => {
           onChange={handleChange}
         />
         <br /> <br />
-        <button type='submit'>Submit</button>
+        <button type='submit'>{editId ? "Update" : "Submit"}</button>
         <br /> <br />
 
       </form>
@@ -110,6 +136,7 @@ const App = () => {
           <th>Email</th>
           <th>Phone</th>
           <th>Password</th>
+          <th>Edit</th>
           <th>Delete</th>
         </tr>
         <tbody>
@@ -120,6 +147,7 @@ const App = () => {
                 <td>{students.email}</td>
                 <td>{students.phone}</td>
                 <td>{students.password}</td>
+                <td><button onClick={() => editStudents(students)}>Edit</button></td>
                 <td><button onClick={() => deleteStudents(students._id)}>Delete</button></td>
               </tr>
             ))

@@ -1,7 +1,8 @@
 const http = require('http')
 const { MongoClient,ObjectId } = require('mongodb')
 
-const url = 'mongodb://localhost:27017/'
+// const url = 'mongodb://localhost:27017/'
+const url = 'mongodb+srv://nk0071489_db_user:hwGypCrbySfSEtzY@mongodblearning.sr4geew.mongodb.net/MongoDbLearn?appName=MongoDBLearning'
 
 const client = new MongoClient(url)
 
@@ -18,7 +19,7 @@ const server = http.createServer(async(req, res) => {
 
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE')
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT')
     if (req.method === 'OPTIONS') {
         res.writeHead(200)
         res.end()
@@ -62,6 +63,35 @@ const server = http.createServer(async(req, res) => {
             'Content-Type': 'application/json'
         })
         res.end(JSON.stringify({ message: "Data Deleted" }))
+    }
+    else if(req.url.startsWith('/update/') && req.method==='PUT'){
+        const id = req.url.split('/')[2]
+
+        let body=''
+        req.on('data',(chunk)=>{
+            console.log("chunks:- ",chunk);
+            
+            body+=chunk.toString()
+
+        })
+        console.log("body:- ",body);
+        
+        req.on('end',async()=>{
+            const data = JSON.parse(body)
+            console.log("data:- ",data);
+            
+            await collection.updateOne(
+                {_id:new ObjectId(id)},
+                {
+                    $set:{
+                        name:data.name,
+                        email:data.email,
+                        phone:data.phone,
+                        password:data.password
+                    }
+                }
+            )
+        })
     }
     else{
         res.writeHead(404, {
